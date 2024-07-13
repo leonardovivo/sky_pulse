@@ -13,7 +13,7 @@ class SkyPulse extends StatelessWidget {
     return MaterialApp(
       title: 'Sky Pulse',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const SkyPulseHomePage(),

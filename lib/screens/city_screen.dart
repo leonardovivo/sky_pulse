@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sky_pulse/screens/weather_screen.dart';
 import '../controllers/text_field_controller.dart';
 
 class CityScreen extends StatefulWidget {
@@ -17,6 +18,16 @@ class _CityScreenState extends State<CityScreen> {
     super.dispose();
   }
 
+  void _navigateToWeatherScreen(BuildContext context) {
+    String cityName = _textFieldController.controller.text;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WeatherScreen(cityName: cityName),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +38,7 @@ class _CityScreenState extends State<CityScreen> {
             width: constraints.maxWidth,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  "assets/images/the_background.jpeg",
-                ),
+                image: AssetImage("assets/images/the_background.jpeg"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -81,10 +90,7 @@ class _CityScreenState extends State<CityScreen> {
                   ),
                   const SizedBox(height: 40),
                   ElevatedButton(
-                    onPressed: () {
-                      print(
-                          'Texto inserido: ${_textFieldController.controller.text}');
-                    },
+                    onPressed: () => _navigateToWeatherScreen(context),
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all<Color>(
                           const Color.fromARGB(255, 2, 179, 255)),

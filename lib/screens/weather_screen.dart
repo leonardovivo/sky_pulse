@@ -3,7 +3,7 @@ import 'package:sky_pulse/models/weather_model.dart';
 import 'package:sky_pulse/services/weather_service.dart';
 
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({required this.cityName, Key? key}) : super(key: key);
+  const WeatherScreen({required this.cityName, super.key});
 
   final String cityName;
 
@@ -32,7 +32,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.white,
         ),
       ),
@@ -51,19 +51,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 20.0),
+                    margin: const EdgeInsets.only(bottom: 20.0),
                     child: Column(
                       children: [
                         Text(
                           'Latest ${widget.cityName} information',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                        const Text(
                           'covered by API',
                           style: TextStyle(
                             color: Colors.white,
@@ -75,19 +75,20 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(color: Colors.grey),
                       color: Colors.white.withOpacity(0.8),
                     ),
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: FutureBuilder<Weather>(
                       future: futureWeather,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         } else if (snapshot.hasError) {
@@ -95,7 +96,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             child: Text('Error: ${snapshot.error}'),
                           );
                         } else if (!snapshot.hasData) {
-                          return Center(
+                          return const Center(
                             child: Text('No data found'),
                           );
                         } else {
@@ -160,20 +161,20 @@ class _WeatherScreenState extends State<WeatherScreen> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
           ),
         ),
-        SizedBox(height: 16.0),
-        Divider(),
+        const SizedBox(height: 16.0),
+        const Divider(),
       ],
     );
   }

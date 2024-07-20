@@ -19,7 +19,12 @@ class _CityScreenState extends State<CityScreen> {
   }
 
   void _navigateToWeatherScreen(BuildContext context) {
-    String cityName = _textFieldController.controller.text;
+    String cityName = _textFieldController.controller.text.trim();
+
+    // Limpa o campo de texto
+    _textFieldController.controller.clear();
+
+    // Navega para a tela de informações
     Navigator.push(
       context,
       MaterialPageRoute(

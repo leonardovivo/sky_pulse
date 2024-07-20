@@ -14,7 +14,7 @@ class WeatherService {
     if (response.statusCode == 200) {
       return Weather.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('City not found or weather data not available');
+      throw ('City not found or weather data not available...');
     }
   }
 }

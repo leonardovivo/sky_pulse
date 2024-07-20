@@ -80,7 +80,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(color: Colors.grey),
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.black.withOpacity(0.8),
                     ),
                     padding: const EdgeInsets.all(16.0),
                     child: FutureBuilder<Weather>(
@@ -93,7 +93,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           );
                         } else if (snapshot.hasError) {
                           return Center(
-                            child: Text('Error: ${snapshot.error}'),
+                            child: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              decoration: BoxDecoration(
+                                color: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Text(
+                                'Oops! \n${snapshot.error}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           );
                         } else if (!snapshot.hasData) {
                           return const Center(
@@ -105,39 +120,39 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildWeatherInfo(
-                                'City',
+                                'City:',
                                 weather.cityName,
                               ),
                               _buildWeatherInfo(
-                                'Climate conditions',
+                                'Climate conditions:',
                                 weather.description,
                               ),
                               _buildWeatherInfo(
-                                'Current temperature',
+                                'Current temperature:',
                                 '${weather.temp}°C',
                               ),
                               _buildWeatherInfo(
-                                'Thermal sensation',
+                                'Thermal sensation:',
                                 '${weather.feelsLike}°C',
                               ),
                               _buildWeatherInfo(
-                                'Minimum temperature',
+                                'Minimum temperature:',
                                 '${weather.tempMin}°C',
                               ),
                               _buildWeatherInfo(
-                                'Maximum temperature',
+                                'Maximum temperature:',
                                 '${weather.tempMax}°C',
                               ),
                               _buildWeatherInfo(
-                                'Moisture',
+                                'Moisture:',
                                 '${weather.humidity}%',
                               ),
                               _buildWeatherInfo(
-                                'Pressure',
+                                'Pressure:',
                                 '${weather.pressure} hPa',
                               ),
                               _buildWeatherInfo(
-                                'Wind',
+                                'Wind:',
                                 '${weather.windSpeed} m/s',
                               ),
                             ],
@@ -164,13 +179,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 8.0),
         Text(
           value,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 16.0),

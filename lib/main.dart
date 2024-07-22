@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sky_pulse/bloc/weather_bloc.dart';
 import 'package:sky_pulse/screens/city_screen.dart';
+import 'package:sky_pulse/services/weather_service.dart';
 
 void main() {
-  runApp(const SkyPulse());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => WeatherBloc(weatherService: WeatherService()),
+        ),
+      ],
+      child: const SkyPulse(),
+    ),
+  );
 }
 
 class SkyPulse extends StatelessWidget {
@@ -14,18 +26,8 @@ class SkyPulse extends StatelessWidget {
       title: 'Sky Pulse',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SkyPulseHomePage(),
+      home: const CityScreen(),
     );
-  }
-}
-
-class SkyPulseHomePage extends StatelessWidget {
-  const SkyPulseHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CityScreen();
   }
 }

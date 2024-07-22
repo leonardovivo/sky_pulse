@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sky_pulse/models/weather_model.dart';
-import 'package:sky_pulse/services/weather_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sky_pulse/screens/city_screen.dart';
+import 'package:sky_pulse/screens/error_screen.dart';
+import '../bloc/weather_bloc.dart';
 
-class WeatherScreen extends StatefulWidget {
+class WeatherScreen extends StatelessWidget {
   const WeatherScreen({required this.cityName, super.key});
 
   final String cityName;
-
-  @override
-  _WeatherScreenState createState() => _WeatherScreenState();
-}
-
-class _WeatherScreenState extends State<WeatherScreen> {
-  late Future<Weather> futureWeather;
-  final WeatherService _weatherService = WeatherService();
-
-  @override
-  void initState() {
-    super.initState();
-    futureWeather = _weatherService.fetchWeatherByCityName(widget.cityName);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +18,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CityScreen(),
+              ),
+              (route) => false,
+            );
           },
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
@@ -55,17 +49,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'Latest ${widget.cityName} information',
+                          'Latest weather update on \n$cityName',
                           style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const Text(
-                          'covered by API',
-                          style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
@@ -76,47 +61,33 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.black.withOpacity(0.8),
-                    ),
-                    padding: const EdgeInsets.all(16.0),
-                    child: FutureBuilder<Weather>(
-                      future: futureWeather,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                color: Colors.redAccent,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                'Oops! \n${snapshot.error}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                  BlocBuilder<WeatherBloc, WeatherState>(
+                    builder: (context, state) {
+                      if (state is WeatherLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is WeatherError) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ErrorScreen(message: state.message),
                             ),
                           );
-                        } else if (!snapshot.hasData) {
-                          return const Center(
-                            child: Text('No data found'),
-                          );
-                        } else {
-                          var weather = snapshot.data!;
-                          return Column(
+                        });
+                        return const SizedBox.shrink();
+                      } else if (state is WeatherLoaded) {
+                        var weather = state.weather;
+                        return Container(
+                          padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.black.withOpacity(0.8),
+                          ),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildWeatherInfo(
@@ -156,11 +127,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 '${weather.windSpeed} m/s',
                               ),
                             ],
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                          ),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('No data found'),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),

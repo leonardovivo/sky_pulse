@@ -16,24 +16,27 @@ class WeatherScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const CityScreen(),
-              ),
-              (route) => false,
-            );
-          },
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CityScreen(),
+                ),
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+          ),
         ),
       ),
       body: Stack(
         children: [
           Image.asset(
-            "assets/images/the_background.jpeg",
+            "assets/images/background.png",
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
@@ -48,14 +51,17 @@ class WeatherScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 20.0),
                     child: Column(
                       children: [
-                        Text(
-                          'Latest weather update on \n$cityName',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 35.0),
+                          child: Text(
+                            'Latest weather update on \n$cityName',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),

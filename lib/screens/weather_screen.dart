@@ -3,11 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sky_pulse/screens/city_screen.dart';
 import 'package:sky_pulse/screens/error_screen.dart';
 import '../bloc/weather_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({required this.cityName, super.key});
 
   final String cityName;
+
+  Route _createRoute(Widget screen, PageTransitionType transitionType) {
+    return PageTransition(
+      type: transitionType,
+      child: screen,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +30,8 @@ class WeatherScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const CityScreen(),
-                ),
+                _createRoute(
+                    const CityScreen(), PageTransitionType.leftToRight),
                 (route) => false,
               );
             },
@@ -77,9 +84,9 @@ class WeatherScreen extends StatelessWidget {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ErrorScreen(message: state.message),
+                            _createRoute(
+                              ErrorScreen(message: state.message),
+                              PageTransitionType.bottomToTop,
                             ),
                           );
                         });

@@ -4,6 +4,7 @@ import 'package:sky_pulse/screens/weather_screen.dart';
 import 'package:sky_pulse/screens/error_screen.dart';
 import '../bloc/weather_bloc.dart';
 import '../controllers/text_field_controller.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({super.key});
@@ -21,6 +22,13 @@ class _CityScreenState extends State<CityScreen> {
     super.dispose();
   }
 
+  Route _createRoute(Widget screen, PageTransitionType transitionType) {
+    return PageTransition(
+      type: transitionType,
+      child: screen,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,16 +39,17 @@ class _CityScreenState extends State<CityScreen> {
               if (state is WeatherError) {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => ErrorScreen(message: state.message),
+                  _createRoute(
+                    ErrorScreen(message: state.message),
+                    PageTransitionType.bottomToTop,
                   ),
                 );
               } else if (state is WeatherLoaded) {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        WeatherScreen(cityName: state.weather.cityName),
+                  _createRoute(
+                    WeatherScreen(cityName: state.weather.cityName),
+                    PageTransitionType.rightToLeft,
                   ),
                 );
               }

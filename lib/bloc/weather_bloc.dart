@@ -21,12 +21,14 @@ class WeatherInitial extends WeatherState {}
 class WeatherLoading extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
+  @override
   final Weather weather;
 
   WeatherLoaded({required this.weather});
 }
 
 class WeatherError extends WeatherState {
+  @override
   final String message;
 
   WeatherError({required this.message});

@@ -20,7 +20,7 @@ class ErrorScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
-                type: PageTransitionType.leftToRight,
+                type: PageTransitionType.topToBottom,
                 child: const CityScreen(),
                 duration: const Duration(milliseconds: 300),
                 reverseDuration: const Duration(milliseconds: 300),

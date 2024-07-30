@@ -1,5 +1,5 @@
 name: sky_pulse
-description: "A new Flutter project."
+description: "An App that gives you climate information for cities around the world"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -46,6 +46,7 @@ dependencies:
   bloc: ^8.1.4
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   leak_tracker: ^10.0.4
@@ -70,6 +71,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  
 
   # To add assets to your application, add an assets section, like this:
   assets:
@@ -77,6 +79,14 @@ flutter:
     - assets/images/the_background.jpeg
     - assets/images/error.jpg
     - assets/images/background.png
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icons/icon.png"
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

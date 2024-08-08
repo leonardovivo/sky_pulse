@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" scr="assets/video/Sky Pulse.mp4">
+  <img width="460" height="300" scr="assets/video/Sky_Pulse.mp4">
 </p>
 
 

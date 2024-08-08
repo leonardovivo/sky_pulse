@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" scr="assets/video/SkyPulse.gif">
+  <img width="460" height="300" scr="assets/images/telaInicial.png">
 </p>
 
 

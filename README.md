@@ -1,3 +1,8 @@
+<p align="center">
+  <img width="460" height="300" scr="assets/video/Sky Pulse.mp4">
+</p>
+
+
 # Sky Pulse
 
 O Sky Pulse é um aplicativo feito para fornecer informações climáticas de cidades ao redor do mundo.

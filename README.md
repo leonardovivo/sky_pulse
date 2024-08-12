@@ -1,7 +1,12 @@
 # Sky Pulse
 
 O Sky Pulse é um aplicativo feito para fornecer informações climáticas de cidades ao redor do mundo.
-Isso através do consumo de uma API, usando requisição HTTP. Veja suas telas e seu funcinamento nas capturas de telas presentes na pasta assets/images deste repositório.
+Isso através do consumo de uma API, usando requisição HTTP.
+
+
+# Ver o Sky Pulse
+
+Veja suas telas e seu funcinamento nas capturas de telas presentes na pasta assets/images deste repositório.
 
 
 # O que o Sky Pulse fornece?

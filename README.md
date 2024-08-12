@@ -6,7 +6,7 @@ Isso através do consumo de uma API, usando requisição HTTP.
 
 # Ver o Sky Pulse
 
-Veja suas telas e seu funcinamento nas capturas de telas presentes na pasta assets/images deste repositório.
+Veja as telas e o funcinamento do Sky Pulse nas capturas de telas presentes na pasta assets/images deste repositório.
 
 
 # O que o Sky Pulse fornece?
